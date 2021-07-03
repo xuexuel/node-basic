@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul id="ul1">
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>444</li>
+  </ul>
+  <div id="box">
+    <input type="button" id="add" value="添加" />
+    <input type="button" id="remove" value="删除" />
+    <input type="button" id="move" value="移动" />
+    <input type="button" id="select" value="选择" />
+  </div>
+
+  <input type="button" name="" id="btn" value="添加" />
+  <ul id="ul2">
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>444</li>
+  </ul>
+</body>
+<script>
+  window.onload = function () {
+    test1();
+    test2();
+    test3();
+  }
+
+  function test1() {
+    let oUl = document.getElementById("ul1");
+    oUl.onclick = function (ev) {
+      ev = ev || window.event;
+      let target = ev.target || ev.srcElement;
+      if (target.nodeName.toLowerCase() == 'li') {
+        console.log(target.innerHTML);
+      }
+    }
+  }
+
+  function test2() {
+    let oBox = document.getElementById("box");
+    oBox.onclick = function (ev) {
+      ev = ev || window.event;
+      let target = ev.target || ev.srcElement;
+      if (target.nodeName.toLowerCase() == 'input') {
+        console.log(target.value);
+      }
+    }
+  }
+
+  function test3() {
+    let oBtn = document.getElementById("btn");
+    let oUl = document.getElementById("ul2");
+    let aLi = oUl.getElementsByTagName('li');
+    let num = 4;
+
+    //事件委托，添加的子元素也有事件
+    oUl.onmouseover = (ev) => {
+      ev = ev || window.event;
+      let target = ev.target || ev.srcElement;
+      if (target.nodeName.toLowerCase() == 'li') {
+        target.style.background = "red";
+      }
+
+    };
+    oUl.onmouseout = (ev) => {
+      ev = ev || window.event;
+      let target = ev.target || ev.srcElement;
+      if (target.nodeName.toLowerCase() == 'li') {
+        target.style.background = "#fff";
+      }
+
+    };
+
+    //添加新节点
+    oBtn.onclick = () => {
+      num++;
+      let oLi = document.createElement('li');
+      oLi.innerHTML = 111 * num;
+      oUl.appendChild(oLi);
+    };
+  }
+</script>
+
+</html>
